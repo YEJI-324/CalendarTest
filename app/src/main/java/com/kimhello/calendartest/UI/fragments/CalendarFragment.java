@@ -32,6 +32,8 @@ public class CalendarFragment extends Fragment {
     private static final int DAYS_COUNT = 42;
     private static final String DATE_FORMAT = "MMM YYYY";
     private static Calendar currentDate = Calendar.getInstance(); //현재 날짜
+    private static int realMonth = currentDate.get(Calendar.MONTH);
+    private static int realYear = currentDate.get(Calendar.YEAR);
 
     @Nullable
     @Override
@@ -46,7 +48,6 @@ public class CalendarFragment extends Fragment {
 
         updateCalendar();
         Log.d("current date", currentDate.toString());
-        Toast.makeText(getActivity(),(currentDate.get(Calendar.MONTH)+1)+"",Toast.LENGTH_SHORT).show();
         btnPrev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,19 +81,30 @@ public class CalendarFragment extends Fragment {
         //fill cells
         while (cells.size()<DAYS_COUNT) {
             cells.add(mCal.getTime());
-            mCal.add(Calendar.DAY_OF_MONTH,1);
+            mCal.add(Calendar.DAY_OF_MONTH,1); //여기서 다음달까지 채우면서 다음 달으로 넘어가는듯
         }
 
         //update grid
         grid.setAdapter(new CalendarAdapter(getContext(), cells));
 
+        mCal.set(Calendar.MONTH, currentDate.get(Calendar.MONTH));
         //update title
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
-        txtDate.setText(sdf.format(mCal.getTime()));
+        String curDateFormat = sdf.format(mCal.getTime());
+        txtDate.setText(curDateFormat);
     }
-    public static Date getSelectedDate(){
+
+    public static Date getSelectedDate(){ // current Date
         Date date = currentDate.getTime();
         return date;
+    }
+
+    public static int getRealMonth() {
+        return realMonth;
+    }
+
+    public static int getRealYear() {
+        return realYear;
     }
 }
 

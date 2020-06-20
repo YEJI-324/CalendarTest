@@ -8,13 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.core.content.ContextCompat;
 
 import com.kimhello.calendartest.R;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 public class CalendarAdapter extends ArrayAdapter<Date> {
@@ -39,6 +39,9 @@ public class CalendarAdapter extends ArrayAdapter<Date> {
 
         // today
         Date today = CalendarFragment.getSelectedDate();
+        //real month and year
+        int realMonth = CalendarFragment.getRealMonth();
+        int realYear = CalendarFragment.getRealYear();
 
         //
         int selectedNow;
@@ -63,13 +66,12 @@ public class CalendarAdapter extends ArrayAdapter<Date> {
             holder.tvItemGridView.setTextColor(Color.GRAY);
         }
         else if (day == today.getDate()) {
-            holder.tvItemGridView.setTextColor(parent.getResources().getColor(R.color.today));
-            holder.tvItemGridView.setBackgroundColor(parent.getResources().getColor(R.color.today_bg));
+            holder.tvItemGridView.setTextColor(ContextCompat.getColor(getContext(), R.color.today));
+            holder.tvItemGridView.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.ic_today_selected_40dp));
         }
 
         // set text
         holder.tvItemGridView.setText(String.valueOf(date.getDate()));
-
         return view;
     }
 }
