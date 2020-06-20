@@ -38,8 +38,10 @@ public class CalendarAdapter extends ArrayAdapter<Date> {
         int year = date.getYear();
 
         // today
-        Date today = new Date();
+        Date today = CalendarFragment.getSelectedDate();
 
+        //
+        int selectedNow;
         // inflate item
         if (view == null) {
             view = inflater.inflate(R.layout.item_calendar_gridview, parent, false);

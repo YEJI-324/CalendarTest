@@ -31,7 +31,7 @@ public class CalendarFragment extends Fragment {
 
     private static final int DAYS_COUNT = 42;
     private static final String DATE_FORMAT = "MMM YYYY";
-    private Calendar currentDate = Calendar.getInstance(); //현재 날짜
+    private static Calendar currentDate = Calendar.getInstance(); //현재 날짜
 
     @Nullable
     @Override
@@ -90,6 +90,9 @@ public class CalendarFragment extends Fragment {
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
         txtDate.setText(sdf.format(mCal.getTime()));
     }
-
+    public static Date getSelectedDate(){
+        Date date = currentDate.getTime();
+        return date;
+    }
 }
 
